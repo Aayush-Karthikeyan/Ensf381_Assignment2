@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Menu View</title>
+</head>
+
+<body>
+    <header id="page_header">
+        <div>
+            <div><img src="img/logo.jpeg" alt="Sweet Scoop Ice Cream Logo"></div>
+        </div>
+        <div>
+            <h3>Sweet Scoop Ice Cream</h3>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="menu_main">
+        <section class="season_selector">
+            <label for="season_filter">Current season:</label>
+            <select id="season_filter" name="season_filter">
+                <option value="winter-2026" selected>Winter</option>
+                <option value="fall-2025">Fall</option>
+                <option value="summer-2025">Summer</option>
+                <option value="spring-2025">Spring</option>
+            </select>
+        </section>
+
+        <section>
+            <h2>Available Flavors</h2>
+            <div class="tile_grid">
+                <article class="ice_cream_tile">
+                    <h3>Vanilla Bean</h3>
+                    <p><strong>Category:</strong> Classic</p>
+                    <img src="img/icecream.jpg" alt="Vanilla ice cream scoop">
+                    <p>Rich vanilla bean flavor with a creamy, smooth finish.</p>
+                    <p>$3.99 - $6.99</p>
+                    <p>Gluten-Free</p>
+                    <a href="customize_order.html" class="customize_link">Customize</a>
+                </article>
+
+                <article class="ice_cream_tile">
+                    <h3>Chocolate Fudge Swirl</h3>
+                    <p><strong>Category:</strong> Signature</p>
+                    <img src="img/icecream.jpg" alt="Chocolate ice cream in cone">
+                    <p>Dark chocolate base with ribbons of silky fudge.</p>
+                    <p>$4.49 - $7.49</p>
+                    <p>Contains Dairy</p>
+                    <a href="customize_order.html" class="customize_link">Customize</a>
+                </article>
+
+                <article class="ice_cream_tile">
+                    <h3>Strawberry Bliss</h3>
+                    <p><strong>Category:</strong> Fruit</p>
+                    <img src="img/icecream.jpg" alt="Strawberry ice cream bowl">
+                    <p>Fresh strawberry puree mixed into a sweet cream base.</p>
+                    <p>$4.29 - $7.29</p>
+                    <p>Nut-Free</p>
+                    <a href="customize_order.html" class="customize_link">Customize</a>
+                </article>
+
+                <article class="ice_cream_tile">
+                    <h3>Mint Chocolate Chip</h3>
+                    <p><strong>Category:</strong> Classic</p>
+                    <img src="img/icecream.jpg" alt="Mint chocolate chip ice cream">
+                    <p>Refreshing mint ice cream with rich chocolate chips.</p>
+                    <p>$4.19 - $7.19</p>
+                    <p>Gluten-Free</p>
+                    <a href="customize_order.html" class="customize_link">Customize</a>
+                </article>
+
+                <article class="ice_cream_tile">
+                    <h3>Cookies &amp; Cream</h3>
+                    <p><strong>Category:</strong> Signature</p>
+                    <img src="img/icecream.jpg" alt="Cookies and cream ice cream">
+                    <p>Classic vanilla ice cream loaded with chocolate cookie pieces.</p>
+                    <p>$4.39 - $7.39</p>
+                    <p>Vegetarian</p>
+                    <a href="customize_order.html" class="customize_link">Customize</a>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>Seasonal Specials</h2>
+            <div class="tile_grid">
+                <article class="ice_cream_tile" data-name="Peppermint Snow" data-price="5.99">
+                    <h3>Peppermint Snow</h3>
+                    <img src="img/icecream.jpg" alt="Peppermint ice cream">
+                    <p><strong>Price:</strong> $5.99</p>
+                    <div class="special_actions">
+                        <button class="add_btn" onclick="addToCart(this)">Add</button>
+                        <button class="remove_btn" onclick="removeFromCart(this)">Remove</button>
+                    </div>
+                </article>
+
+                <article class="ice_cream_tile" data-name="Caramel Apple Crunch" data-price="6.49">
+                    <h3>Caramel Apple Crunch</h3>
+                    <img src="img/icecream.jpg" alt="Caramel ice cream scoop">
+                    <p><strong>Price:</strong> $6.49</p>
+                    <div class="special_actions">
+                        <button class="add_btn" onclick="addToCart(this)">Add</button>
+                        <button class="remove_btn" onclick="removeFromCart(this)">Remove</button>
+                    </div>
+                </article>
+
+                <article class="ice_cream_tile" data-name="Maple Pecan Delight" data-price="6.29">
+                    <h3>Maple Pecan Delight</h3>
+                    <img src="img/icecream.jpg" alt="Maple pecan ice cream">
+                    <p><strong>Price:</strong> $6.29</p>
+                    <div class="special_actions">
+                        <button class="add_btn" onclick="addToCart(this)">Add</button>
+                        <button class="remove_btn" onclick="removeFromCart(this)">Remove</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Cart Section -->
+        <section id="cart_section">
+            <h2>Cart</h2>
+            <div id="cart_items">
+                <p id="empty_cart_msg">No items in cart.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sweet Scoop Ice Cream.</p>
+    </footer>
+
+    <script>
+        // Cart object to track items: { name: { quantity, price } }
+        var cart = {};
+
+        function addToCart(button) {
+            var tile = button.closest(".ice_cream_tile");
+            var name = tile.getAttribute("data-name");
+            var price = parseFloat(tile.getAttribute("data-price"));
+
+            if (cart[name]) {
+                cart[name].quantity += 1;
+            } else {
+                cart[name] = { quantity: 1, price: price };
+            }
+
+            renderCart();
+        }
+
+        function removeFromCart(button) {
+            var tile = button.closest(".ice_cream_tile");
+            var name = tile.getAttribute("data-name");
+
+            if (cart[name]) {
+                cart[name].quantity -= 1;
+                if (cart[name].quantity <= 0) {
+                    delete cart[name];
+                }
+            }
+
+            renderCart();
+        }
+
+        function renderCart() {
+            var cartItemsDiv = document.getElementById("cart_items");
+            cartItemsDiv.innerHTML = "";
+
+            var names = Object.keys(cart);
+
+            if (names.length === 0) {
+                var emptyMsg = document.createElement("p");
+                emptyMsg.id = "empty_cart_msg";
+                emptyMsg.textContent = "No items in cart.";
+                cartItemsDiv.appendChild(emptyMsg);
+                return;
+            }
+
+            for (var i = 0; i < names.length; i++) {
+                var name = names[i];
+                var item = cart[name];
+                var lineTotal = (item.quantity * item.price).toFixed(2);
+
+                var cartItem = document.createElement("div");
+                cartItem.className = "cart-item";
+
+                var nameSpan = document.createElement("span");
+                nameSpan.className = "cart-item-name";
+                nameSpan.textContent = name + " (" + item.quantity + ")";
+
+                var priceSpan = document.createElement("span");
+                priceSpan.className = "cart-item-price";
+                priceSpan.textContent = "$" + lineTotal;
+
+                cartItem.appendChild(nameSpan);
+                cartItem.appendChild(priceSpan);
+                cartItemsDiv.appendChild(cartItem);
+            }
+        }
+    </script>
+</body>
+
+</html>

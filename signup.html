@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Signup</title>
+</head>
+
+<body>
+    <header id="page_header">
+        <div>
+            <div><img src="img/logo.jpeg" alt="Sweet Scoop Ice Cream Logo"></div>
+        </div>
+
+        <div>
+            <h3>Sweet Scoop Ice Cream</h3>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <main class="signup_main">
+        <div id="signup_container">
+            <h2>Signup</h2>
+            <form id="signup_form">
+                <label for="signup_username">Username</label><br>
+                <input type="text" id="signup_username" name="username"><br><br>
+
+                <label for="signup_email">Email</label><br>
+                <input type="text" id="signup_email" name="email"><br><br>
+
+                <label for="signup_password">Password</label><br>
+                <input type="password" id="signup_password" name="password"><br><br>
+
+                <label for="signup_confirm_password">Confirm Password</label><br>
+                <input type="password" id="signup_confirm_password" name="confirm_password"><br><br>
+
+                <button type="button" class="signup_btn" onclick="signupUser()">Signup</button>
+            </form>
+
+            <!-- Message box displayed beneath the form -->
+            <div id="signup_message_box"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sweet Scoop Ice Cream.</p>
+    </footer>
+
+    <script>
+        function signupUser() {
+            var username = document.getElementById("signup_username").value;
+            var email = document.getElementById("signup_email").value;
+            var password = document.getElementById("signup_password").value;
+            var confirmPassword = document.getElementById("signup_confirm_password").value;
+            var messageBox = document.getElementById("signup_message_box");
+
+            var errors = [];
+
+            // Username validation
+            if (username.length < 3 || username.length > 20) {
+                errors.push("Invalid username (Must be 3-20 characters long)");
+            } else if (!/^[a-zA-Z]/.test(username)) {
+                errors.push("Invalid username (Must start with a letter)");
+            } else if (!/^[a-zA-Z][a-zA-Z0-9_-]*$/.test(username)) {
+                errors.push("Invalid username (Only letters, numbers, hyphens, and underscores allowed)");
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                errors.push("Invalid password (Min 8 characters; uppercase, lowercase, number, special character; no spaces)");
+            } else if (/\s/.test(password)) {
+                errors.push("Invalid password (Min 8 characters; uppercase, lowercase, number, special character; no spaces)");
+            } else {
+                var hasUpper = /[A-Z]/.test(password);
+                var hasLower = /[a-z]/.test(password);
+                var hasNumber = /[0-9]/.test(password);
+                var hasSpecial = /[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]/.test(password);
+
+                if (!hasUpper || !hasLower || !hasNumber || !hasSpecial) {
+                    errors.push("Invalid password (Min 8 characters; uppercase, lowercase, number, special character; no spaces)");
+                }
+            }
+
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                errors.push("Passwords do not match");
+            }
+
+            // Email validation
+            if (/\s/.test(email)) {
+                errors.push("Invalid email (Must contain @ and end with .com, .net, or .io)");
+            } else if (!/@/.test(email)) {
+                errors.push("Invalid email (Must contain @ and end with .com, .net, or .io)");
+            } else if (!/^[^\s@]+@[^\s@]+\.(com|net|io)$/.test(email)) {
+                errors.push("Invalid email (Must contain @ and end with .com, .net, or .io)");
+            }
+
+            if (errors.length > 0) {
+                messageBox.className = "message-box error";
+                messageBox.innerHTML = errors.join("<br>");
+            } else {
+                messageBox.className = "message-box success";
+                messageBox.textContent = "Signup successful! Redirecting to login...";
+                setTimeout(function() {
+                    window.location.href = "login.html";
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+
+</html>

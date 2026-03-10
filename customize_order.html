@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="page_header">
+        <div>
+            <div><img src="img/logo.jpeg" alt="Sweet Scoop Ice Cream Logo"></div>
+        </div>
+
+        <div>
+            <h3>Sweet Scoop Ice Cream</h3>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu_view.html">Menu</a></li>
+        </ul>
+    </nav>
+
+    <main class="customize_order_main">
+
+        <!-- Timer at top of main content -->
+        <p id="order_timer">Order Time Left: 10:00</p>
+
+        <form>
+            <div>
+                <img src="img/icecream_banner.jpeg" alt="Banner image for customizing order" id="banner_img">
+            </div>
+
+            <h2>Vanilla Dream</h2>
+            <h3>Choose Type:</h3>
+
+            <input type="radio" id="type_cup" name="type" value="Cup">
+            <label for="type_cup">Cup</label><br><br>
+            <input type="radio" id="type_cone" name="type" value="Cone">
+            <label for="type_cone">Cone</label><br><br>
+
+            <h2>Chocolate Bliss</h2>
+            <h3>Select toppings:</h3>
+
+            <input type="checkbox" id="topping1" name="topping1" value="Sprinkles">
+            <label for="topping1">Sprinkles</label><br><br>
+            <input type="checkbox" id="topping2" name="topping2" value="Chocolate Chips">
+            <label for="topping2">Chocolate Chips</label><br><br>
+            <input type="checkbox" id="topping3" name="topping3" value="Whipped Cream">
+            <label for="topping3">Whipped Cream</label><br><br>
+
+            <!-- Total Price Display -->
+            <p id="total_price">Total Price: $6.00</p>
+
+            <button type="button" onclick="submitOrder()">Submit Order</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sweet Scoop Ice Cream.</p>
+    </footer>
+
+    <script>
+        // 10-minute countdown timer
+        var timeLeft = 600; // 10 minutes in seconds
+
+        var timerInterval = setInterval(function() {
+            timeLeft--;
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+            var mm = minutes < 10 ? "0" + minutes : minutes;
+            var ss = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById("order_timer").textContent = "Order Time Left: " + mm + ":" + ss;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                window.location.href = "order_summary.html";
+            }
+        }, 1000);
+
+        function submitOrder() {
+            // Validate base flavor (radio button)
+            var cupChecked = document.getElementById("type_cup").checked;
+            var coneChecked = document.getElementById("type_cone").checked;
+
+            if (!cupChecked && !coneChecked) {
+                alert("Please select a base flavor (Cup or Cone).");
+                return;
+            }
+
+            // Validate at least one topping
+            var topping1 = document.getElementById("topping1").checked;
+            var topping2 = document.getElementById("topping2").checked;
+            var topping3 = document.getElementById("topping3").checked;
+
+            if (!topping1 && !topping2 && !topping3) {
+                alert("Please select at least one topping.");
+                return;
+            }
+
+            // Calculate price
+            var basePrice = 6.00;
+            var toppingPrice = 1.50;
+            var totalToppings = 0;
+
+            if (topping1) totalToppings++;
+            if (topping2) totalToppings++;
+            if (topping3) totalToppings++;
+
+            var totalPrice = basePrice + (totalToppings * toppingPrice);
+            document.getElementById("total_price").textContent = "Total Price: $" + totalPrice.toFixed(2);
+
+            // Redirect to order summary after displaying price
+            window.location.href = "order_summary.html";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <header id="page_header">
+        <div>
+            <div><img src="img/logo.jpeg" alt="Sweet Scoop Ice Cream Logo"></div>
+        </div>
+
+        <div>
+            <h3>Sweet Scoop Ice Cream</h3>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="login_main">
+        <div id="login_container">
+            <h2>Welcome Back!</h2>
+            <form id="login_form">
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+
+                <label for="password">Password (Email)</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <div>
+                    <input type="checkbox" id="forgot_password" name="forgot_password" disabled>
+                    <label for="forgot_password">Forgot Password</label><br><br>
+                </div>
+
+                <button type="button" onclick="loginUser()">Login</button><br><br>
+
+                <p>New user? <a href="signup.html" class="signup-link">Create an account</a></p>
+            </form>
+
+            <!-- Message box displayed beneath the form -->
+            <div id="message_box"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sweet Scoop Ice Cream.</p>
+    </footer>
+
+    <script>
+        function loginUser() {
+            var usernameInput = document.getElementById("username").value.trim();
+            var passwordInput = document.getElementById("password").value.trim();
+            var messageBox = document.getElementById("message_box");
+
+            if (usernameInput === "" || passwordInput === "") {
+                messageBox.className = "message-box error";
+                messageBox.textContent = "Please enter both username and password.";
+                return;
+            }
+
+            fetch("https://jsonplaceholder.typicode.com/users")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(users) {
+                    var matchedUser = null;
+
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].username.toLowerCase() === usernameInput.toLowerCase()) {
+                            matchedUser = users[i];
+                            break;
+                        }
+                    }
+
+                    if (matchedUser === null) {
+                        messageBox.className = "message-box error";
+                        messageBox.textContent = "Invalid username. Please try again.";
+                        return;
+                    }
+
+                    // Password must match the user's email (case sensitive)
+                    if (passwordInput === matchedUser.email) {
+                        messageBox.className = "message-box success";
+                        messageBox.textContent = "Login successful! Redirecting...";
+                        setTimeout(function() {
+                            window.location.href = "menu_view.html";
+                        }, 2000);
+                    } else {
+                        messageBox.className = "message-box error";
+                        messageBox.textContent = "Invalid password. Please try again.";
+                    }
+                })
+                .catch(function(error) {
+                    messageBox.className = "message-box error";
+                    messageBox.textContent = "Error connecting to server. Please try again later.";
+                });
+        }
+    </script>
+</body>
+
+</html>

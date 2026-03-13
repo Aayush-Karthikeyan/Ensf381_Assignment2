@@ -9,6 +9,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    color: #3b1f0e;
 }
 
 main {
@@ -25,6 +26,10 @@ header {
     justify-content: flex-start;
     padding: 15px 30px;
     border-bottom: 5px solid #e4b48c;
+}
+
+header h3 {
+    color: #5c3317;
 }
 
 header img {
@@ -44,8 +49,14 @@ nav {
     justify-content: center;
     padding: 10px;
     border-bottom: 2px solid #e4b48c;
-    margin-bottom: 30px;
     flex-wrap: wrap;
+}
+
+.index_main,
+.menu_main,
+.customize_order_main,
+.order_summary_main {
+    margin-top: 30px;
 }
 
 nav ul {
@@ -61,7 +72,7 @@ nav ul {
 nav a {
     display: block;
     text-decoration: none;
-    color: brown;
+    color: #ffffff;
     background-color: #f28c8c;
     font-weight: bold;
     padding: 10px;
@@ -107,9 +118,11 @@ footer {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 1100px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
+    background-color: #cce7f5;
+    flex: 1;
 }
 
 #login_container {
@@ -126,12 +139,18 @@ footer {
 
 #login_form {
     text-align: center;
-    margin: 0 auto 70px;
+    margin: 0 auto;
 }
 
 #login_form input[type="text"],
 #login_form input[type="password"] {
     background-color: #fff8ee;
+    width: 280px;
+    padding: 8px;
+    border: 1px solid #5c3317;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
 }
 
 form button,
@@ -171,8 +190,8 @@ form button,
 }
 
 .ice_cream_tile {
-    background-color: #ffffff;
-    border: 20px solid #ffffff;
+    background-color: #fff8ee;
+    border: 20px solid #fff8ee;
     border-radius: 20px;
     padding: 15px;
     margin: 15px;
@@ -180,11 +199,12 @@ form button,
     width: calc(33.333% - 30px);
     text-align: center;
     box-sizing: border-box;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .ice_cream_tile:hover {
     background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 .ice_cream_tile img {
@@ -233,12 +253,14 @@ form button,
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     border-radius: 25px;
+    background-color: #fff8ee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .customize_order_main form {
@@ -246,9 +268,6 @@ form button,
     margin: 0 auto;
     text-align: center;
     padding: 20px;
-    background-color: #fff8ee;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .customize_order_main form button {
@@ -311,10 +330,14 @@ form button,
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 25px;
     box-sizing: border-box;
+    display: block !important;
+    text-align: left !important;
+    align-items: unset !important;
+    flex-direction: unset !important;
 }
 
 #cart_section h2 {
-    text-align: left;
+    text-align: left !important;
     margin-top: 0;
 }
 
@@ -325,6 +348,7 @@ form button,
     background-color: #ffffff;
     border-radius: 8px;
     margin-bottom: 6px;
+    border: 1px solid #e4b48c;
 }
 
 .cart-item-name {
@@ -403,9 +427,11 @@ form button,
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 1100px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
+    background-color: #cce7f5;
+    flex: 1;
 }
 
 #signup_container {
@@ -429,4 +455,22 @@ form button,
 #signup_form input[type="password"],
 #signup_form input[type="email"] {
     background-color: #fff8ee;
+    width: 280px;
+    padding: 8px;
+    border: 1px solid #5c3317;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+
+}
+
+.order_card {
+    background-color: #fff8ee;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px 25px;
+    margin: 10px 0 20px 0;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
